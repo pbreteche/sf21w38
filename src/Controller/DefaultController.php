@@ -21,4 +21,9 @@ class DefaultController
     {
         return new Response('Bonjour '.$name.' !');
     }
+
+    public function article(int $id): Response
+    {
+        return new Response('Contenu de l\'article '.$id);
+    }
 }

@@ -6,3 +6,8 @@ hello:
     path: /hello/{name}
     controller: App\Controller\DefaultController::hello
     defaults: { name: 'tout le monde' } # rend le paramètre du "path" optionnel
+
+article:
+    path: /article/{id}
+    controller: App\Controller\DefaultController::article
+    requirements: { id: \d+ }
