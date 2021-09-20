@@ -5,3 +5,4 @@ homepage:
 hello:
     path: /hello/{name}
     controller: App\Controller\DefaultController::hello
+    defaults: { name: 'tout le monde' } # rend le paramètre du "path" optionnel
