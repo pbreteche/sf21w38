@@ -9,7 +9,7 @@ hello:
 
 article:
     path: /{_locale}/article/{id}.{_format}
-    host: {subdomain}.example.com
+    host: '{subdomain}.example.com'
     controller: App\Controller\DefaultController::article
     requirements:
         id: \d+
