@@ -1,24 +1,3 @@
-homepage:
-    path: /
-    controller: App\Controller\DefaultController::homepage
-
-hello:
-    path: /hello/{name}
-    controller: App\Controller\DefaultController::hello
-    defaults: { name: 'tout le monde' } # rend le paramètre du "path" optionnel
-
-article:
-    path: /{_locale}/article/{id}.{_format}
-    host: '{subdomain}.example.com'
-    controller: App\Controller\DefaultController::article
-    requirements:
-        id: \d+
-        _locale: '[a-z]{2}(_[A-Z]{2})?'
-        _format: html|json
-        subdomain: portal|www
-    methods: [ POST, PUT ]
-    schemes: [ https ]
-
-atelier_pratique:
-    path: /atelier
-    controller: App\Controller\DefaultController::atelierPratique
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
