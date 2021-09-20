@@ -9,5 +9,12 @@ hello:
 
 article:
     path: /{_locale}/article/{id}.{_format}
+    host: {subdomain}.example.com
     controller: App\Controller\DefaultController::article
-    requirements: { id: \d+, _locale: '[a-z]{2}(_[A-Z]{2})?', _format: html|json }
+    requirements:
+        id: \d+
+        _locale: '[a-z]{2}(_[A-Z]{2})?'
+        _format: html|json
+        subdomain: portal|www
+    methods: [ POST, PUT ]
+    schemes: [ https ]
