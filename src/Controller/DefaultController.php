@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DefaultController
 {
@@ -53,5 +54,22 @@ class DefaultController
     public function article(int $id): Response
     {
         return new Response('Contenu de l\'article '.$id);
+    }
+
+    /**
+     * Affiche le paramètre exo de la requête précédente
+     */
+    public function atelierPratique(Request $request): Response
+    {
+        $valeurPrecedente = $request->getSession()->get('exo', 'paramètre exo absent');
+
+        $nouveau = $request->query->get('exo');
+        if (!is_null($nouveau)) {
+            $request->getSession()->set('exo', $nouveau);
+        } else {
+            $request->getSession()->remove('exo');
+        }
+
+        return new Response($valeurPrecedente);
     }
 }

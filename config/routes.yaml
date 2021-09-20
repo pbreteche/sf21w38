@@ -18,3 +18,7 @@ article:
         subdomain: portal|www
     methods: [ POST, PUT ]
     schemes: [ https ]
+
+atelier_pratique:
+    path: /atelier
+    controller: App\Controller\DefaultController::atelierPratique
