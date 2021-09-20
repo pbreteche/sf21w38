@@ -16,4 +16,9 @@ class DefaultController
             ]
         );
     }
+
+    public function hello(string $name): Response
+    {
+        return new Response('Bonjour '.$name.' !');
+    }
 }

@@ -1,3 +1,7 @@
 homepage:
     path: /
     controller: App\Controller\DefaultController::homepage
+
+hello:
+    path: /hello/{name}
+    controller: App\Controller\DefaultController::hello
