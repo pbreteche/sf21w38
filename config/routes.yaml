@@ -8,6 +8,6 @@ hello:
     defaults: { name: 'tout le monde' } # rend le paramètre du "path" optionnel
 
 article:
-    path: /article/{id}
+    path: /{_locale}/article/{id}.{_format}
     controller: App\Controller\DefaultController::article
-    requirements: { id: \d+ }
+    requirements: { id: \d+, _locale: '[a-z]{2}(_[A-Z]{2})?', _format: html|json }
