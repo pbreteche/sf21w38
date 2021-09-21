@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -35,7 +37,7 @@ class PostController extends AbstractController
     /**
      * @Route("/post/new", methods={"GET", "POST"})
      */
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $newPost = new Post();
 
@@ -46,8 +48,20 @@ class PostController extends AbstractController
             ->getForm()
         ;
 
-        return $this->render('post/new.html.twig', [
-            'create_form' => $form->createView(),
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPost->setCreatedAt();
+            $manager->persist($newPost);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_post_show', [
+                'id' => $newPost->getId(),
+            ], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('post/new.html.twig', [
+            'create_form' => $form,
         ]);
     }
 }
