@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ form(create_form) }}
+{{ form_start(create_form) }}
+    {{ form_errors(create_form) }}
+    {{ form_row(create_form.isPublished) }}
+    {{ form_rest(create_form)}}
+    <button>Enregistrer</button>
+{{ form_end(create_form) }}
 {% endblock %}
 
 {% block title %}Nouvelle publication{% endblock %}
