@@ -6,7 +6,9 @@
 <h1>Les dernières publications</h1>
 <ul>
     {% for post in posts %}
-    <li class="{{ loop.index is odd ? 'odd' : 'even'}}">{{ post.title }}</li>
+        <li class="{{ loop.index is odd ? 'odd' : 'even'}}">{{ post.title }}</li>
+        {% else %} {# else si aucun élément dans la liste #}
+        <li>Pas de publication actuellement.</li>
     {% endfor %}
 </ul>
 {% endblock %}
