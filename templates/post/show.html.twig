@@ -10,5 +10,12 @@
     <p>Écrit le {{ post.createdAt | date }}</p>
     <div>
         {{ post.body }}
+        {# Composant Property-Accessor essaye d'accéder au propriétés via
+            - la propriété "body"
+            - la méthode "body()"
+            X la méthode "getBody()"
+            - la méthode "isBody()"
+            - la méthode "hasBody()"
+        #}
     </div>
 {% endblock %}
