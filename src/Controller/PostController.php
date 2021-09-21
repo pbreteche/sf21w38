@@ -31,4 +31,23 @@ class PostController extends AbstractController
             'post' => $post,
         ]);
     }
+
+    /**
+     * @Route("/post/new", methods={"GET", "POST"})
+     */
+    public function create(): Response
+    {
+        $newPost = new Post();
+
+        $form = $this->createFormBuilder($newPost)
+            ->add('title')
+            ->add('body')
+            ->add('isPublished')
+            ->getForm()
+        ;
+
+        return $this->render('post/new.html.twig', [
+            'create_form' => $form->createView(),
+        ]);
+    }
 }
