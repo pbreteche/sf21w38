@@ -6,7 +6,7 @@
 <h1>Les dernières publications</h1>
 <ul>
     {% for post in posts %}
-    <li>{{ loop.index }} - {{ post.title }}</li>
+    <li class="{{ loop.index is odd ? 'odd' : 'even'}}">{{ post.title }}</li>
     {% endfor %}
 </ul>
 {% endblock %}
