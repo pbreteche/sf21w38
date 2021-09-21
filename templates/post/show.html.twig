@@ -3,6 +3,9 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
+    <nav>
+        <a href="{{ path('app_post_index') }}">Retour à la liste</a>
+    </nav>
     <h1>{{ post.title }}</h1>
     <p>Écrit le {{ post.createdAt | date }}</p>
     <div>
