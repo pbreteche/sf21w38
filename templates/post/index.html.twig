@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}Les dernières publications{% endblock %}
 
 {% block body %}
-<h1>{{ post.title }}</h1>
-<p>Écrit le {{ post.createdAt | date }}</p>
-<div>
-    {{ post.body }}
-</div>
+<h1>Les dernières publications</h1>
+<ul>
+    {% for post in posts %}
+    <li>{{ loop.index }} - {{ post.title }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

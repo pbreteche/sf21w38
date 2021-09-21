@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,17 +13,12 @@ class PostController extends AbstractController
     /**
      * @Route("/post", methods="GET")
      */
-    public function index(): Response
+    public function index(PostRepository $repository): Response
     {
-        $post = (new Post())
-            ->setTitle('Un titre exemple')
-            ->setBody('Le contenu de la publication serait ici.')
-            ->setCreatedAt(new \DateTimeImmutable('last monday 09:45:56'))
-            ->setIsPublished(true)
-        ;
+        $posts = $repository->findAll();
 
         return $this->render('post/index.html.twig', [
-            'post' => $post,
+            'posts' => $posts,
         ]);
     }
 
