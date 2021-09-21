@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,14 +29,8 @@ class PostController extends AbstractController
     /**
      * @Route("/post/{id}", requirements={"id": "\d+"}, methods="GET")
      */
-    public function show(int $id, PostRepository $repository): Response
+    public function show(Post $post): Response
     {
-        $post = $repository->find($id);
-
-        if (!$post) {
-            throw $this->createNotFoundException();
-        }
-
         return $this->render('post/show.html.twig', [
             'post' => $post,
         ]);
