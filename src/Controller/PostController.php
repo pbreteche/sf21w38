@@ -24,12 +24,7 @@ class PostController extends AbstractController
             $page = 1;
         }
 
-        $posts = $repository->findBy(
-            [],
-            ['createdAt' => 'DESC'],
-            self::POSTS_PER_PAGE,
-            ($page - 1) * self::POSTS_PER_PAGE
-        );
+        $posts = $repository->findByMonth(new \DateTimeImmutable());
 
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
