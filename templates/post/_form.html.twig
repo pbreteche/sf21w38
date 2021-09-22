@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.isPublished) }}
+    {{ form_rest(form)}}
+<button>{{ button_text | default('Valider') }}</button>
+{{ form_end(form) }}
