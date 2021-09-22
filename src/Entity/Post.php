@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use App\Validator\Even;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -35,6 +36,7 @@ class Post
 
     /**
      * @ORM\Column(type="boolean")
+     * @Even()
      */
     private $isPublished;
 
