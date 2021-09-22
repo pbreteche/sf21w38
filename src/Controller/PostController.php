@@ -63,14 +63,17 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}/edit", requirements={"id": "\d+"}, methods={"GET", "POST"})
+     * @Route("/post/{id}/edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
     public function edit(
         Post $post,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, [
+            'method' => 'put',
+            'warn_seo' => true,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
