@@ -9,13 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostType extends AbstractType
 {
-    private const TITLE_HELP = 'Attention, modifier le titre impacte le référencement';
+    private const TITLE_HELP = ' Attention, modifier le titre impacte le référencement.';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title', null, [
-                'help' => $options['warn_seo'] ? self::TITLE_HELP: null,
+                'help' => 'Ne pas utiliser le caractère "$".'.($options['warn_seo'] ? self::TITLE_HELP: null),
             ])
             ->add('body')
             ->add('isPublished')

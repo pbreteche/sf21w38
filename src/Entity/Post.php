@@ -21,6 +21,7 @@ class Post
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Regex(pattern="/^[^$]+$/", message="Le caractère ""$"" est interdit")
      */
     private $title;
 
@@ -37,7 +38,7 @@ class Post
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @Assert\NotNull
+     * @Assert\NotNull(message="La date de création doit avoir été définie automatiquement")
      */
     private $createdAt;
 
