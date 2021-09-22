@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class PostController extends AbstractController
 {
@@ -29,11 +28,8 @@ class PostController extends AbstractController
     /**
      * @Route("/post/{id}", requirements={"id": "\d+"}, methods="GET")
      */
-    public function show(Post $post, ValidatorInterface $validator): Response
+    public function show(Post $post): Response
     {
-        $violations = $validator->validate($post);
-        dump($violations);
-
         return $this->render('post/show.html.twig', [
             'post' => $post,
         ]);

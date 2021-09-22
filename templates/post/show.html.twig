@@ -7,15 +7,8 @@
         <a href="{{ path('app_post_index') }}">Retour à la liste</a>
     </nav>
     <h1>{{ post.title }}</h1>
-    <p>Écrit le {{ post.createdAt | date }}</p>
+    <p>Écrit le {{ post.createdAt | date }} par {{ post.writtenBy.nickName }}</p>
     <div>
         {{ post.body }}
-        {# Composant Property-Accessor essaye d'accéder au propriétés via
-            - la propriété "body"
-            - la méthode "body()"
-            X la méthode "getBody()"
-            - la méthode "isBody()"
-            - la méthode "hasBody()"
-        #}
     </div>
 {% endblock %}
