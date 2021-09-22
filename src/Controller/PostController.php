@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,13 +41,7 @@ class PostController extends AbstractController
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $newPost = new Post();
-
-        $form = $this->createFormBuilder($newPost)
-            ->add('title')
-            ->add('body')
-            ->add('isPublished')
-            ->getForm()
-        ;
+        $form = $this->createForm(PostType::class, $newPost);
 
         $form->handleRequest($request);
 
@@ -75,13 +70,7 @@ class PostController extends AbstractController
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-        $form = $this->createFormBuilder($post)
-            ->add('title')
-            ->add('body')
-            ->add('isPublished')
-            ->getForm()
-        ;
-
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
