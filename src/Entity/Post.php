@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -121,4 +122,18 @@ class Post
         return mb_strlen($this->title)+mb_strlen($this->body);
     }
 
+    /**
+     * @Assert\Callback()
+     */
+    public function totalTextLengthValidate(ExecutionContextInterface $context, $payload)
+    {
+        $totalLength = mb_strlen($this->title)+mb_strlen($this->body);
+
+        if (20 > $totalLength) {
+            $context->buildViolation('L\'ensemble du titre et du corps doit comporter au moins 20 caractères.')
+                ->atPath('title')
+                ->addViolation()
+            ;
+        }
+    }
 }
