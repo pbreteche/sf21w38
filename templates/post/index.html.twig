@@ -8,6 +8,7 @@
     {% for post in posts %}
         <li class="{{ loop.index is odd ? 'odd' : 'even'}}">
                 <a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a>
+                (<a href="{{ path('app_post_edit', {id: post.id}) }}">éditer</a>)
         </li>
         {% else %} {# else si aucun élément dans la liste #}
         <li>Pas de publication actuellement.</li>
