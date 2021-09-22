@@ -6,6 +6,7 @@ use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class PostType extends AbstractType
 {
@@ -16,6 +17,7 @@ class PostType extends AbstractType
         $builder
             ->add('title', null, [
                 'help' => 'Ne pas utiliser le caractère "$".'.($options['warn_seo'] ? self::TITLE_HELP: null),
+                'constraints' => [new Length(['min' => 3])], // À éviter, préférer la configuration des DataClasses
             ])
             ->add('body')
             ->add('isPublished')
