@@ -112,4 +112,13 @@ class Post
 
         return $this;
     }
+
+    /**
+     * @Assert\GreaterThan(value="20", message="L'ensemble du titre et du corps doit comporter au moins 20 caractères.")
+     */
+    public function getTotalTextLength()
+    {
+        return mb_strlen($this->title)+mb_strlen($this->body);
+    }
+
 }
