@@ -1,0 +1,15 @@
+html {
+    font-family: "Liberation Sans", sans-serif;
+}
+
+.flash {
+    padding: .5em;
+    border: 1px solid black;
+    border-radius: .25em;
+    background-color: #ccc;
+}
+
+.flash.flash-success {
+    border-color: #070;
+    background-color: #afa;
+}
