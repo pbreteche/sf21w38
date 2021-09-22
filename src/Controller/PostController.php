@@ -13,12 +13,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
+    private const POSTS_PER_PAGE = 4;
     /**
      * @Route("/post", methods="GET")
      */
-    public function index(PostRepository $repository): Response
+    public function index(Request $request, PostRepository $repository): Response
     {
-        $posts = $repository->findAll();
+        $page = (int)$request->query->get('p', 1);
+        if (1 > $page) {
+            $page = 1;
+        }
+
+        $posts = $repository->findBy(
+            [],
+            ['createdAt' => 'DESC'],
+            self::POSTS_PER_PAGE,
+            ($page - 1) * self::POSTS_PER_PAGE
+        );
 
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
