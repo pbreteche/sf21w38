@@ -28,6 +28,7 @@ class Post
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
+     * @Assert\Length(min=10, groups="Edit")
      */
     private $body;
 

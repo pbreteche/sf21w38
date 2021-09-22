@@ -74,6 +74,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post, [
             'method' => 'put',
             'warn_seo' => true,
+            'validation_groups' => ['Post', 'Edit'],
         ]);
         $form->handleRequest($request);
 
