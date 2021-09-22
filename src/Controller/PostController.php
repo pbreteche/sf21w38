@@ -55,6 +55,8 @@ class PostController extends AbstractController
             $manager->persist($newPost);
             $manager->flush();
 
+            $this->addFlash('success', 'La publication a été correctement enregistrée.');
+
             return $this->redirectToRoute('app_post_show', [
                 'id' => $newPost->getId(),
             ], Response::HTTP_SEE_OTHER);
