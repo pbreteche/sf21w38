@@ -41,12 +41,12 @@ class PostController extends AbstractController
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $newPost = new Post();
+        $newPost->setCreatedAt();
         $form = $this->createForm(PostType::class, $newPost);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $newPost->setCreatedAt();
             $manager->persist($newPost);
             $manager->flush();
 
@@ -70,6 +70,7 @@ class PostController extends AbstractController
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+        $post->setUpdatedAt();
         $form = $this->createForm(PostType::class, $post, [
             'method' => 'put',
             'warn_seo' => true,
@@ -77,7 +78,6 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setUpdatedAt(new \DateTimeImmutable());
             $manager->flush();
 
             $this->addFlash('success', 'La publication a été correctement modifiée.');
