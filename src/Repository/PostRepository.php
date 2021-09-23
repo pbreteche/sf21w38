@@ -25,8 +25,9 @@ class PostRepository extends ServiceEntityRepository
         $end =$start->modify('+1 month');
 
         return $this->getEntityManager()->createQuery(
-            'SELECT p FROM '.Post::class.' p'.
+            'SELECT p, author FROM '.Post::class.' p'.
             ' WHERE p.createdAt >= :start'.
+            ' LEFT JOIN p.writtenBy author'.
             ' AND p.createdAt < :end'.
             ' ORDER BY p.createdAt DESC'
         )->setParameters([
@@ -52,18 +53,22 @@ class PostRepository extends ServiceEntityRepository
         $end =$start->modify('+1 month');
 
         $queryBuilder= $this->createQueryBuilder('post')
+            ->leftJoin('post.writtenBy', 'author')
+            ->addSelect('author')
             ->andWhere('post.createdAt >= :start')
         ;
 
         if ($stop) {
-            $queryBuilder->andWhere('post.createdAt < :end');
+            $queryBuilder
+                ->andWhere('post.createdAt < :end')
+                ->setParameter('end', $end)
+            ;
         }
 
         return $queryBuilder
             ->getQuery()
             ->setParameters([
                 'start' => $start,
-                'end' => $end,
             ])
             ->setMaxResults(20)
             ->setFirstResult(20 * ($page -1))
