@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Author;
 use App\Entity\Post;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,6 +23,10 @@ class PostType extends AbstractType
             ])
             ->add('body')
             ->add('isPublished')
+            ->add('writtenBy', EntityType::class, [
+                'class' => Author::class,
+                'choice_label' => 'nickname'
+            ])
         ;
     }
 
