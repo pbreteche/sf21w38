@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\EqualTo;
 
+/**
+ * @method User getUser()
+ */
 class PostController extends AbstractController
 {
     private const POSTS_PER_PAGE = 4;
@@ -43,11 +48,13 @@ class PostController extends AbstractController
 
     /**
      * @Route("/post/new", methods={"GET", "POST"})
+     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
      */
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $newPost = new Post();
         $newPost->setCreatedAt();
+        $newPost->setWrittenBy($this->getUser()->getAuthor());
         $form = $this->createForm(PostType::class, $newPost);
 
         $form->handleRequest($request);
