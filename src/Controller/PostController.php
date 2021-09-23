@@ -7,9 +7,11 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\EqualTo;
 
 class PostController extends AbstractController
 {
@@ -94,6 +96,36 @@ class PostController extends AbstractController
 
         return $this->renderForm('post/edit.html.twig', [
             'edit_form' => $form,
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * @Route("/post/{id}/delete", requirements={"id": "\d+"}, methods={"GET", "DELETE"})
+     */
+    public function delete(
+        Post $post,
+        Request $request,
+        EntityManagerInterface $manager
+    ): Response {
+        $form = $this->createFormBuilder(null, ['method' => 'delete'])
+            ->add('confirm', TextType::class, [
+                'help' => 'Recopiez ici le titre de la publication',
+                'constraints' => [new EqualTo(['value' => $post->getTitle()])]
+            ])->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->remove($post);
+            $manager->flush();
+
+            $this->addFlash('success', 'La publication a été définitivement supprimée.');
+
+            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('post/delete.html.twig', [
+            'delete_form' => $form,
             'post' => $post,
         ]);
     }
