@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Factory\PostInitializer;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,11 +58,9 @@ class PostController extends AbstractController
     /**
      * @Route("/new", methods="POST")
      */
-    public function create(Request $request, EntityManagerInterface $manager): Response
+    public function create(Request $request, PostInitializer $factory, EntityManagerInterface $manager): Response
     {
-        $newPost = new Post();
-        $newPost->setCreatedAt();
-        $newPost->setWrittenBy($this->getUser()->getAuthor());
+        $newPost = $factory->create();
         $form = $this->createForm(PostType::class, $newPost);
 
         $form->handleRequest($request);
