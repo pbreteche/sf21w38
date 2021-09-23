@@ -17,15 +17,24 @@ use Symfony\Component\Validator\Constraints\EqualTo;
 
 /**
  * @method User getUser()
+ *
+ * @Route("/post", methods="GET")
+ * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
  */
 class PostController extends AbstractController
 {
     private const POSTS_PER_PAGE = 4;
     /**
-     * @Route("/post", methods="GET")
+     * @Route("")
      */
     public function index(Request $request, PostRepository $repository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        if (!$this->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $page = (int)$request->query->get('p', 1);
 
         $posts = $repository->findByMonth2(new \DateTimeImmutable(), $page);
@@ -37,7 +46,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}", requirements={"id": "\d+"}, methods="GET")
+     * @Route("/{id}", requirements={"id": "\d+"})
      */
     public function show(Post $post): Response
     {
@@ -47,8 +56,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/new", methods={"GET", "POST"})
-     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+     * @Route("/new", methods="POST")
      */
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
@@ -76,7 +84,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}/edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     * @Route("/{id}/edit", requirements={"id": "\d+"}, methods="PUT")
      */
     public function edit(
         Post $post,
@@ -108,7 +116,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}/delete", requirements={"id": "\d+"}, methods={"GET", "DELETE"})
+     * @Route("/{id}/delete", requirements={"id": "\d+"}, methods="DELETE")
      */
     public function delete(
         Post $post,

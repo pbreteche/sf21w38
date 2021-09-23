@@ -3,15 +3,18 @@
 {% block title %}Les dernières publications{% endblock %}
 
 {% block body %}
-<h1>Les dernières publications</h1>
-<ul>
-    {% for post in posts %}
-        <li class="{{ loop.index is odd ? 'odd' : 'even'}}">
+    <h1>Les dernières publications</h1>
+    {% if is_granted('ROLE_USER') %}
+        <p>Vous avec le rôle <code>ROLE_USER</code></p>
+    {% endif %}
+    <ul>
+        {% for post in posts %}
+            <li class="{{ loop.index is odd ? 'odd' : 'even'}}">
                 <a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a> de {{ post.writtenBy.nickName }}
                 (<a href="{{ path('app_post_edit', {id: post.id}) }}">éditer</a>)
-        </li>
+            </li>
         {% else %} {# else si aucun élément dans la liste #}
-        <li>Pas de publication actuellement.</li>
-    {% endfor %}
-</ul>
+            <li>Pas de publication actuellement.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
