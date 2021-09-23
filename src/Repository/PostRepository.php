@@ -32,10 +32,51 @@ class PostRepository extends ServiceEntityRepository
         )->setParameters([
             'start' => $start,
             'end' => $end,
-        ])->setMaxResults(4)
-            ->setFirstResult(4)
+        ])
+            //->setMaxResults(4)
+            //->setFirstResult(4)
             ->getResult()
         ;
+    }
+
+    /**
+     * @return Post[]
+     */
+    public function findByMonth2(\DateTimeImmutable $month, int $page = 1, bool $stop= false)
+    {
+        if (1 > $page) {
+            $page = 1;
+        }
+
+        $start = $month->modify('first day of this month midnight');
+        $end =$start->modify('+1 month');
+
+        $queryBuilder= $this->createQueryBuilder('post')
+            ->andWhere('post.createdAt >= :start')
+        ;
+
+        if ($stop) {
+            $queryBuilder->andWhere('post.createdAt < :end');
+        }
+
+        return $queryBuilder
+            ->getQuery()
+            ->setParameters([
+                'start' => $start,
+                'end' => $end,
+            ])
+            ->setMaxResults(20)
+            ->setFirstResult(20 * ($page -1))
+            ->getResult()
+        ;
+    }
+
+    public function createQueryBuilder($alias, $indexBy = null)
+    {
+        return parent::createQueryBuilder($alias, $indexBy)
+            ->andWhere('post.isPublished = 1')
+            ->orderBy('post.createdAt', 'DESC')
+            ;
     }
 
     // /**

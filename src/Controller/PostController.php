@@ -20,11 +20,9 @@ class PostController extends AbstractController
     public function index(Request $request, PostRepository $repository): Response
     {
         $page = (int)$request->query->get('p', 1);
-        if (1 > $page) {
-            $page = 1;
-        }
 
-        $posts = $repository->findByMonth(new \DateTimeImmutable());
+        $posts = $repository->findByMonth2(new \DateTimeImmutable(), $page);
+        //$posts = $repository->findAll();
 
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
