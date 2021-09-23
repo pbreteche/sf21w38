@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints\EqualTo;
  */
 class PostController extends AbstractController
 {
-    private const POSTS_PER_PAGE = 4;
     /**
      * @Route("")
      */
@@ -85,6 +84,7 @@ class PostController extends AbstractController
 
     /**
      * @Route("/{id}/edit", requirements={"id": "\d+"}, methods="PUT")
+     * @IsGranted("POST_EDIT", subject="post")
      */
     public function edit(
         Post $post,
