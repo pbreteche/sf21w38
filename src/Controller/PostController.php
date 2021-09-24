@@ -21,7 +21,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @method User getUser()
  *
- * @Route("/post", methods="GET")
+ * @Route({
+ *     "en": "/post",
+ *     "fr": "/publi"
+ * }, methods="GET")
  * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
  */
 class PostController extends AbstractController
@@ -58,7 +61,10 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/new", methods="POST")
+     * @Route({
+     *     "en": "/new",
+     *     "fr": "/nouveau"
+     * }, methods="POST")
      */
     public function create(
         Request $request,
@@ -125,7 +131,10 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @Route({
+     *     "en": "/{id}/delete",
+     *     "fr": "/{id}/supprimer"
+     * }, requirements={"id": "\d+"}, methods="DELETE")
      */
     public function delete(
         Post $post,
