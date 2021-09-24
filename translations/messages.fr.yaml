@@ -1,0 +1,5 @@
+# Stratégie de traduction avec une langue principale
+Message identifier is in english language: L'identification du message est son contenu en langue anglaise
+
+# Stratégie de traduction avec clé sémantique
+demo.strategy.semantic: L'identification du message se fait par une clé sémantique

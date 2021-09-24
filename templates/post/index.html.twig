@@ -7,6 +7,8 @@
     {% if is_granted('ROLE_USER') %}
         <p>Vous avec le rôle <code>ROLE_USER</code></p>
     {% endif %}
+    <p>{{ 'Message identifier is in english language'|trans }}</p>
+    <p>{{ 'demo.strategy.semantic'|trans }}</p>
     <ul>
         {% for post in posts %}
             <li class="{{ loop.index is odd ? 'odd' : 'even'}}">
