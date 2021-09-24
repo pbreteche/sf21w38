@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Post;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Security;
 
 class PostInitializer
@@ -17,9 +18,15 @@ class PostInitializer
 
     public function create(): Post
     {
+        $author = $this->security->getUser()->getAuthor();
+
+        if (!$author) {
+            throw new AccessDeniedHttpException();
+        }
+
         return (new Post())
             ->setCreatedAt()
-            ->setWrittenBy($this->security->getUser()->getAuthor())
+            ->setWrittenBy($author)
         ;
     }
 }
