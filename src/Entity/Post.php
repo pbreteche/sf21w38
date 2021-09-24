@@ -123,7 +123,7 @@ class Post
     }
 
     /**
-     * @Assert\GreaterThan(value="20", message="L'ensemble du titre et du corps doit comporter au moins 20 caractères.")
+     * @Assert\GreaterThan(value="20", message="total_text_length.message")
      */
     public function getTotalTextLength()
     {
@@ -138,7 +138,7 @@ class Post
         $totalLength = mb_strlen($this->title)+mb_strlen($this->body);
 
         if (20 > $totalLength) {
-            $context->buildViolation('L\'ensemble du titre et du corps doit comporter au moins 20 caractères.')
+            $context->buildViolation('total_text_length.message')
                 ->atPath('title')
                 ->addViolation()
             ;

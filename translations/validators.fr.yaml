@@ -1,0 +1,5 @@
+even:
+  message: La valeur "{{ value }}" doit être paire.
+
+total_text_length:
+  message: L'ensemble du titre et du corps doit comporter au moins 20 caractères.
