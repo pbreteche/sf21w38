@@ -55,11 +55,18 @@ class PostController extends AbstractController
      * @Route("/{id}", requirements={"id": "\d+"})
      * @Cache(expires="+1 hour", public=true, lastModified="post.getCreatedAt()")
      */
-    public function show(Post $post): Response
+    public function show(Post $post, Request $request): Response
     {
+        $response = new Response();
+        $response->setEtag(sha1($post->getTitle().$post->getBody()));
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
-        ]);
+        ], $response);
     }
 
     /**
