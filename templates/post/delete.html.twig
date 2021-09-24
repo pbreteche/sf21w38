@@ -4,7 +4,7 @@
     <h1>{{ 'post.delete.title'|trans({'title': post.title}) }}</h1>
     {{ form_start(delete_form) }}
     {{ form_widget(delete_form) }}
-    <button>{{ 'delete'|trans }}</button>
+    <button class="btn btn-danger">{{ 'delete'|trans }}</button>
     {{ form_end(delete_form) }}
 {% endblock %}
 
