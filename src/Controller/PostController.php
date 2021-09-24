@@ -9,6 +9,7 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Utils\Calendar;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,6 +53,7 @@ class PostController extends AbstractController
 
     /**
      * @Route("/{id}", requirements={"id": "\d+"})
+     * @Cache(expires="+1 hour", public=true, lastModified="post.getCreatedAt()")
      */
     public function show(Post $post): Response
     {
