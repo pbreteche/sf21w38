@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Factory\PostInitializer;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Utils\Calendar;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,10 +59,16 @@ class PostController extends AbstractController
     /**
      * @Route("/new", methods="POST")
      */
-    public function create(Request $request, PostInitializer $factory, EntityManagerInterface $manager): Response
-    {
+    public function create(
+        Request $request,
+        PostInitializer $factory,
+        EntityManagerInterface $manager,
+        Calendar $calendar
+    ): Response {
         $newPost = $factory->create();
         $form = $this->createForm(PostType::class, $newPost);
+
+        dump($calendar->getHolidays(2022));
 
         $form->handleRequest($request);
 
