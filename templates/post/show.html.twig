@@ -4,10 +4,13 @@
 
 {% block body %}
     <nav>
-        <a href="{{ path('app_post_index') }}">Retour à la liste</a>
+        <a href="{{ path('app_post_index') }}">{{ 'back2list'|trans }}</a>
     </nav>
     <h1>{{ post.title }}</h1>
-    <p>Écrit le {{ post.createdAt | date }} par {{ post.writtenBy.nickName }}</p>
+    <p>{{ 'post.show.authoring'|trans({
+            '%date%': post.createdAt | date,
+            '%name%': post.writtenBy.nickName
+        }) }}</p>
     <div>
         {{ post.body }}
     </div>

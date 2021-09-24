@@ -4,6 +4,7 @@ Message identifier is in english language: L'identification du message est son c
 # Stratégie de traduction avec clé sémantique
 demo.strategy.semantic: L'identification du message se fait par une clé sémantique
 
+back2list: Retour à la liste
 by: de
 edit: éditer
 
@@ -11,6 +12,8 @@ post:
   index:
     title: Les dernières publications
     empty: Pas de publication actuellement.
+  show:
+    authoring: Écrit le %date% par %name%
 
 security:
   user:
