@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ include('post/_form.html.twig', {form: edit_form, button_text: 'Modifier'}) }}
+    {{ include('post/_form.html.twig', {form: edit_form, button_text: 'update'}) }}
 {% endblock %}
 
 {% block title %}Édition de {{ post.title }}{% endblock %}

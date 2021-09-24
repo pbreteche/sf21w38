@@ -9,6 +9,7 @@ by: de
 create: créer
 delete: supprimer
 edit: éditer
+update: modifier
 validate: valider
 
 post:
@@ -19,8 +20,11 @@ post:
     isPublished: publié
 
   form:
-    title_help: Ne pas utiliser le caractère "$".
-    title_help_seo: Ne pas utiliser le caractère "$". Attention, modifier le titre impacte le référencement.
+    title_help: >-
+      {seo, select,
+        with_seo   {Ne pas utiliser le caractère "$". Attention, modifier le titre impacte le référencement.}
+        other  {Ne pas utiliser le caractère "$".}
+      }
 
   # relative to post pages
   index:

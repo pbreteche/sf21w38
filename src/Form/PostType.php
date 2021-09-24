@@ -11,13 +11,13 @@ use Symfony\Component\Validator\Constraints\Length;
 class PostType extends AbstractType
 {
     private const TITLE_HELP = 'post.form.title_help';
-    private const TITLE_HELP_WITH_SEO = 'post.form.title_help_seo';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title', null, [
-                'help' => $options['warn_seo'] ? self::TITLE_HELP_WITH_SEO: self::TITLE_HELP,
+                'help' => self::TITLE_HELP,
+                'help_translation_parameters' => ['seo' => $options['warn_seo'] ? 'with_seo': 'without_seo'],
                 'constraints' => [new Length(['min' => 3])], // À éviter, préférer la configuration des DataClasses
             ])
             ->add('body')
