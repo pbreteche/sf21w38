@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Suppression de « {{ post.title }} »</h1>
+    <h1>{{ 'post.delete.title'|trans({'%title%': post.title}) }}</h1>
     {{ form_start(delete_form) }}
     {{ form_widget(delete_form) }}
-    <button>Supprimer</button>
+    <button>{{ 'delete'|trans }}</button>
     {{ form_end(delete_form) }}
 {% endblock %}
 

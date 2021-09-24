@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @method User getUser()
@@ -63,12 +64,13 @@ class PostController extends AbstractController
         Request $request,
         PostInitializer $factory,
         EntityManagerInterface $manager,
-        Calendar $calendar
+        Calendar $calendar,
+        TranslatorInterface $translator
     ): Response {
         $newPost = $factory->create();
         $form = $this->createForm(PostType::class, $newPost);
 
-        dump($calendar->getHolidays(2022));
+        $calendar->getHolidays(2022);
 
         $form->handleRequest($request);
 
@@ -76,7 +78,7 @@ class PostController extends AbstractController
             $manager->persist($newPost);
             $manager->flush();
 
-            $this->addFlash('success', 'La publication a été correctement enregistrée.');
+            $this->addFlash('success', $translator->trans('post.create.success'));
 
             return $this->redirectToRoute('app_post_show', [
                 'id' => $newPost->getId(),
@@ -95,7 +97,8 @@ class PostController extends AbstractController
     public function edit(
         Post $post,
         Request $request,
-        EntityManagerInterface $manager
+        EntityManagerInterface $manager,
+        TranslatorInterface $translator
     ): Response {
         $post->setUpdatedAt();
         $form = $this->createForm(PostType::class, $post, [
@@ -108,7 +111,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
 
-            $this->addFlash('success', 'La publication a été correctement modifiée.');
+            $this->addFlash('success', $translator->trans('post.edit.success'));
 
             return $this->redirectToRoute('app_post_show', [
                 'id' => $post->getId(),
@@ -127,11 +130,13 @@ class PostController extends AbstractController
     public function delete(
         Post $post,
         Request $request,
-        EntityManagerInterface $manager
+        EntityManagerInterface $manager,
+        TranslatorInterface $translator
     ): Response {
         $form = $this->createFormBuilder(null, ['method' => 'delete'])
             ->add('confirm', TextType::class, [
-                'help' => 'Recopiez ici le titre de la publication',
+                'label' => 'post.delete.label',
+                'help' => 'post.delete.help',
                 'constraints' => [new EqualTo(['value' => $post->getTitle()])]
             ])->getForm();
         $form->handleRequest($request);
@@ -140,7 +145,7 @@ class PostController extends AbstractController
             $manager->remove($post);
             $manager->flush();
 
-            $this->addFlash('success', 'La publication a été définitivement supprimée.');
+            $this->addFlash('success', $translator->trans('post.delete.success'));
 
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
         }

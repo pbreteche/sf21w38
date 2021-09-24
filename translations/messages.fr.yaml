@@ -7,6 +7,7 @@ demo.strategy.semantic: L'identification du message se fait par une clé sémant
 back2list: Retour à la liste
 by: de
 create: créer
+delete: supprimer
 edit: éditer
 validate: valider
 
@@ -27,6 +28,15 @@ post:
     empty: Pas de publication actuellement.
   show:
     authoring: Écrit le %date% par %name%
+  create:
+    success: 'La publication a été correctement enregistrée.'
+  edit:
+    success: 'La publication a été correctement modifiée.'
+  delete:
+    success: 'La publication a été définitivement supprimée.'
+    help: Recopiez ici le titre de la publication
+    label: Confirmation
+    title: Suppression de « %title% »
 
 security:
   user:
