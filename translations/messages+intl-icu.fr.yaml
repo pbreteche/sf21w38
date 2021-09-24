@@ -36,7 +36,7 @@ post:
       }
     empty: Pas de publication actuellement.
   show:
-    authoring: Écrit le {date} par {name}
+    authoring: Écrit le {date, date, long} par {name}
   create:
     success: 'La publication a été correctement enregistrée.'
   edit:

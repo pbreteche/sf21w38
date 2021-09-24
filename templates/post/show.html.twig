@@ -8,9 +8,9 @@
     </nav>
     <h1>{{ post.title }}</h1>
     <p>{{ 'post.show.authoring'|trans({
-            'date': post.createdAt | date,
+            'date': post.createdAt,
             'name': post.writtenBy.nickName
-        }) }}</p>
+        }) }} {{ post.createdAt|format_date }} {{ 1234.56|format_currency('EUR') }}</p>
     <div>
         {{ post.body }}
     </div>
