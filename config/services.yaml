@@ -11,6 +11,9 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+        bind:
+            $dateFormat: 'c'
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -28,7 +31,7 @@ services:
     # est générée automatiquement par l'auto-wiring et l'auto-configuration
     App\Serializer\PostSerializer:
         class: App\Serializer\PostSerializer
-        arguments: { $authorSerializer: '@App\Serializer\AuthorSerializer' }
+        arguments: { $authorSerializer: '@App\Serializer\AuthorSerializer', $dateFormat: 'c' }
         # si nécessaire, appel de méthode au moment de la création du service
         calls:
             - [init, []]
