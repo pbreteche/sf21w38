@@ -10,13 +10,14 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class PostType extends AbstractType
 {
-    private const TITLE_HELP = ' Attention, modifier le titre impacte le référencement.';
+    private const TITLE_HELP = 'post.form.title_help';
+    private const TITLE_HELP_WITH_SEO = 'post.form.title_help_seo';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title', null, [
-                'help' => 'Ne pas utiliser le caractère "$".'.($options['warn_seo'] ? self::TITLE_HELP: null),
+                'help' => $options['warn_seo'] ? self::TITLE_HELP_WITH_SEO: self::TITLE_HELP,
                 'constraints' => [new Length(['min' => 3])], // À éviter, préférer la configuration des DataClasses
             ])
             ->add('body')
@@ -29,6 +30,7 @@ class PostType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Post::class,
             'warn_seo' => false,
+            'label_format' => 'post.fields.%name%'
         ]);
     }
 }

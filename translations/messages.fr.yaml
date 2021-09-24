@@ -6,9 +6,22 @@ demo.strategy.semantic: L'identification du message se fait par une clé sémant
 
 back2list: Retour à la liste
 by: de
+create: créer
 edit: éditer
+validate: valider
 
 post:
+  # relative to post entity
+  fields:
+    body: corps
+    title: titre
+    isPublished: publié
+
+  form:
+    title_help: Ne pas utiliser le caractère "$".
+    title_help_seo: Ne pas utiliser le caractère "$". Attention, modifier le titre impacte le référencement.
+
+  # relative to post pages
   index:
     title: Les dernières publications
     empty: Pas de publication actuellement.

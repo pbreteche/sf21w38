@@ -2,5 +2,5 @@
     {{ form_errors(form) }}
     {{ form_row(form.isPublished) }}
     {{ form_rest(form)}}
-<button>{{ button_text | default('Valider') }}</button>
+<button>{{ button_text|default('validate')|trans }}</button>
 {{ form_end(form) }}
