@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PostController extends AbstractController
 {
-
     /**
      * @Route("/{id}", requirements={"id": "\d+"}, methods="GET")
      */

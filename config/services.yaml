@@ -23,3 +23,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Exemple uniquement pour montrer la syntaxe, car la définition
+    # est générée automatiquement par l'auto-wiring et l'auto-configuration
+    App\Serializer\PostSerializer:
+        class: App\Serializer\PostSerializer
+        arguments: { $authorSerializer: '@App\Serializer\AuthorSerializer' }
+        # si nécessaire, appel de méthode au moment de la création du service
+        calls:
+            - [init, []]

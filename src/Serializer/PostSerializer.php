@@ -14,6 +14,10 @@ class PostSerializer
         $this->authorSerializer = $authorSerializer;
     }
 
+    public function init()
+    {
+    }
+
     public function serialize(Post $post): array
     {
         return [
