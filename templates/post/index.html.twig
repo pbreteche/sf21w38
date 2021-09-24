@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les dernières publications{% endblock %}
+{% block title %}{{ 'post.index.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Les dernières publications</h1>
+    <h1>{{ 'post.index.title'|trans }}</h1>
     {% if is_granted('ROLE_USER') %}
-        <p>Vous avec le rôle <code>ROLE_USER</code></p>
+        <p>{{ 'security.user.role'|trans }} <code>ROLE_USER</code></p>
     {% endif %}
     <p>{{ 'Message identifier is in english language'|trans }}</p>
     <p>{{ 'demo.strategy.semantic'|trans }}</p>
     <ul>
         {% for post in posts %}
             <li class="{{ loop.index is odd ? 'odd' : 'even'}}">
-                <a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a> de {{ post.writtenBy.nickName }}
-                (<a href="{{ path('app_post_edit', {id: post.id}) }}">éditer</a>)
+                <a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a> {{ 'by'|trans }} {{ post.writtenBy.nickName }}
+                (<a href="{{ path('app_post_edit', {id: post.id}) }}">{{ 'edit'|trans|capitalize }}</a>)
             </li>
         {% else %} {# else si aucun élément dans la liste #}
-            <li>Pas de publication actuellement.</li>
+            <li>{{ 'post.index.empty'|trans }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

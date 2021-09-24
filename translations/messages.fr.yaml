@@ -3,3 +3,15 @@ Message identifier is in english language: L'identification du message est son c
 
 # Stratégie de traduction avec clé sémantique
 demo.strategy.semantic: L'identification du message se fait par une clé sémantique
+
+by: de
+edit: éditer
+
+post:
+  index:
+    title: Les dernières publications
+    empty: Pas de publication actuellement.
+
+security:
+  user:
+    role: Vous avec le rôle
