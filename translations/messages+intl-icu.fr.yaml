@@ -28,7 +28,12 @@ post:
 
   # relative to post pages
   index:
-    title: Les dernières publications
+    title: >-
+      {posts, plural,
+        =0    {Aucune publication en vue}
+        one   {La seule et unique publication}
+        other {Les dernières publications}
+      }
     empty: Pas de publication actuellement.
   show:
     authoring: Écrit le {date} par {name}

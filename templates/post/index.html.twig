@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'post.index.title'|trans }}{% endblock %}
+{% block title %}{{ 'post.index.title'|trans({posts: posts|length}) }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'post.index.title'|trans }}</h1>
+    <h1>{{ 'post.index.title'|trans({posts: posts|length}) }}</h1>
     {% if is_granted('ROLE_USER') %}
         <p>{{ 'security.user.role'|trans }} <code>ROLE_USER</code></p>
     {% endif %}
