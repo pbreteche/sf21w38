@@ -6,6 +6,13 @@ use App\Entity\Post;
 
 class PostSerializer
 {
+    /** @var AuthorSerializer */
+    private $authorSerializer;
+
+    public function __construct(AuthorSerializer $authorSerializer)
+    {
+        $this->authorSerializer = $authorSerializer;
+    }
 
     public function serialize(Post $post): array
     {
@@ -14,9 +21,7 @@ class PostSerializer
             'title' => $post->getTitle(),
             'body' => $post->getBody(),
             'created_at' => $post->getCreatedAt()->format('c'),
-            'written_by' => [
-                'nickname' => $post->getWrittenBy()->getNickName()
-            ]
+            'written_by' => $this->authorSerializer->serialize($post->getWrittenBy()),
         ];
     }
 }
