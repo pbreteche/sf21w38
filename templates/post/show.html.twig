@@ -8,8 +8,8 @@
     </nav>
     <h1>{{ post.title }}</h1>
     <p>{{ 'post.show.authoring'|trans({
-            '%date%': post.createdAt | date,
-            '%name%': post.writtenBy.nickName
+            'date': post.createdAt | date,
+            'name': post.writtenBy.nickName
         }) }}</p>
     <div>
         {{ post.body }}
